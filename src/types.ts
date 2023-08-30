@@ -14,3 +14,39 @@ export interface Book {
   updated: string
   word_markup: string
 }
+
+export interface Review {
+  book: string
+  collectionId: string
+  collectionName: string
+  created: string
+  id: string
+  name: string
+  review: string
+  updated: string
+}
+
+export interface Student {
+  id: string
+  collectionId: string
+  collectionName: string
+  created: string
+  updated: string
+  name: string
+  grade: number
+  division: string
+  score: number
+  quotient: number
+  depressed: boolean
+}
+
+export interface Message {
+  id: string
+  collectionId: string
+  collectionName: string
+  created: string
+  updated: string
+  text: string
+  from: string
+  student: string
+}

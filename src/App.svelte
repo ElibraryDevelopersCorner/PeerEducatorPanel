@@ -5,6 +5,9 @@
     import Elib from "./pages/Elib.svelte";
     import Book from "./pages/Book.svelte";
     import { currentUser, pb } from "./pocketbase";
+    import Quotient from "./pages/Quotient.svelte";
+    import Student from "./pages/Student.svelte";
+    import Students from "./pages/Students.svelte";
 
     const signInWithGoogle = async () => {
         await pb.collection("users").authWithOAuth2({ provider:"google" })
@@ -45,13 +48,20 @@
                           </span>
                               <ul class="dropdown-menu">
                                   <li><Link class="dropdown-item" to="/elib">E-Library</Link></li>
-                                  <li><Link class="dropdown-item" to="/dictionary">Happiness Quotient</Link></li>
+                                  <li><Link class="dropdown-item" to="/quotient">Happiness Quotient</Link></li>
                                   <li>
                                       <hr class="dropdown-divider">
                                   </li>
                                   <li><Link class="dropdown-item" to="#">All Apps</Link></li>
                               </ul>
                           </li>
+                          {#if $currentUser}
+                          <li class="nav-item">
+                            <Link to="/students" class="nav-link">Students
+                                <span class="visually-hidden">(current)</span>
+                            </Link>
+                          </li>
+                          {/if}
                       </ul>
                       <div class="ms-auto d-flex align-items-center">
                         {#if $currentUser}
@@ -70,6 +80,11 @@
             <Route path="/elib/book/:id" let:params>
                 <Book id={params.id} />
             </Route>
+            <Route path="/quotient"><Quotient/></Route>
+            <Route path="/student/:student" let:params>
+                <Student student={params.student}/>
+            </Route>
+            <Route path="/students"><Students/></Route>
           </section>
       </div>
       </main>

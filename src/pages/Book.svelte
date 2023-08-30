@@ -1,11 +1,12 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import type { Book } from "../types";
+    import type { Book, Review } from "../types";
     import { pb } from "../pocketbase";
 
     export let id: string = "";
 
     let book: Book;
+    let reviews: Review[];
 
     let current_level = 1
 
@@ -17,8 +18,20 @@
     let statusText2 = "Status: "
     let statusText3 = "Status: "
 
+    let review_name = ""
+    let review_markup = ""
+
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     const recognition = new SpeechRecognition();
+
+
+    const addReview = async () => {
+        await pb.collection("reviews").create({
+            "name": review_name,
+            "review": review_markup,
+            "book": id
+        })
+    }
 
     recognition.onresult = (e) => {
         if (current_level === 1) {
@@ -69,7 +82,8 @@
     }
 
     onMount(async () => {
-        book = await pb.collection("books").getOne(id);
+        book = await pb.collection("books").getOne<Book>(id);
+        reviews = await pb.collection("reviews").getFullList<Review>({ filter: `book = "${id}"` })
     });
 </script>
 
@@ -160,6 +174,44 @@
                 <p id="status3">{statusText3}</p>
                 <hr />
                 <br />
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title">
+                    {book.title} : Reviews
+                </h2>
+                <p class="card-text">Reviewers help book authors to get feedback, useful for future development, and to know the
+                    success or failure of their books (see, for example, Leyshon, 2013). Reviews can also help course teachers
+                    to choose one book over another or warn them off certain books. So Do please review the books you read today.</p>
+                <hr><br>
+                <h3>Add Reviews</h3>
+                <form on:submit|preventDefault class="mb-3" method="post">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="author" bind:value={review_name}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Review</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="review" bind:value={review_markup}></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" on:click={addReview}>Submit</button>
+                </form>
+                <h3>Reviews</h3>
+                {#if reviews}
+                    {#if reviews.length !== 0}
+                        <ul class="list-group">
+                            {#each reviews as review}
+                                <li class="list-group-item">
+                                    <p>{review.review}</p>
+                                    <p>{review.name}</p>
+                                </li>
+                            {/each}
+                        </ul>
+                    {:else}
+                        <p>No Reviews Available! Leave one today.</p>
+                    {/if}
+                {/if}
             </div>
         </div>
 
