@@ -149,7 +149,7 @@
                 </div>
             </div>
             <div class="card m-3">
-                <img src="public/IMG20220603083118.jpg"
+                <img src="IMG20220603083118.jpg"
                     class="card-img-top" alt="...">
                 <div class="card-body">
                     <p class="card-text">Gaurav Jagdale taking time from his life as 10h grader to contribute to the
