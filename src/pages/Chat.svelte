@@ -4,10 +4,10 @@
     import { pb } from "../pocketbase";
     import type { UnsubscribeFunc } from "pocketbase";
 
-    export let student: string = "";
+    export let chat: string = "";
 
-    let student_bio: Student;
     let messages: Message[];
+    let student_bio: Student
 
     let unsubscribe: UnsubscribeFunc;
 
@@ -16,22 +16,24 @@
     let sendMessage = async () => {
         const data = {
             "text": mew_message,
-            "from": "student",
-            "student": student
+            "from": "counsellor",
+            "student": chat
         };
         await pb.collection("messages").create(data)
         mew_message = ""
     }
 
     onDestroy(() => {
-        unsubscribe?.()
+        unsubscribe()
     })
 
+
     onMount(async () => {
-        student_bio = await pb.collection("student").getOne<Student>(student);
+        console.log(chat)
+        student_bio = await pb.collection("student").getOne(chat)
         messages = await pb
             .collection("messages")
-            .getFullList<Message>({ filter: `student = "${student}"` });
+            .getFullList<Message>({ filter: `student = "${chat}"` });
         messages = messages.reverse();
         unsubscribe = await pb
             .collection("messages")
@@ -67,7 +69,7 @@
             <p><b>Score</b>: {student_bio.score}</p>
             <p><b>Quotient</b>: {student_bio.quotient}%</p>
             <hr />
-            <h3 class="text-center">Chat with School Counseller</h3>
+            <h3 class="text-center">Chat with {student_bio.name}</h3>
             <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam,
                 quibusdam aliquid. Rerum voluptas provident porro est sunt
@@ -99,14 +101,14 @@
             <ul class="list-group">
                 {#if messages}
                     {#if messages.length === 0}
-                        <p class="text-center list-group-item">
+                        <li class="text-center list-group-item">
                             No Messages Yet! Initiate Conversation Now
-                        </p>
+                        </li>
                     {:else}
                         {#each messages as message}
                             <li
                                 class="list-group-item"
-                                style="text-align: {message.from ===
+                                style="text-align: {message.from !==
                                 'counsellor'
                                     ? 'left'
                                     : 'right'};"

@@ -1,7 +1,17 @@
+<script>
+
+    import { currentUser } from "../pocketbase";
+
+</script>
 <img src="Untitled (2).png"
     alt="banner" class="img-fluid" style="width: 100%;">
 <div class="mb-4 p-4 d-flex justify-content-center align-items-center bg-info">
     <a class="btn btn-primary mx-2" href="/elib">E-Library</a>
+    <a class="btn btn-primary mx-2" href="/quotient">Happiness Quotient</a>
+    {#if $currentUser}
+    <a class="btn btn-primary mx-2" href="/students">Students</a>
+        
+    {/if}
 
 </div>
 <section class="mb-4 p-4">

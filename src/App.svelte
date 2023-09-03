@@ -8,6 +8,7 @@
     import Quotient from "./pages/Quotient.svelte";
     import Student from "./pages/Student.svelte";
     import Students from "./pages/Students.svelte";
+    import Chat from "./pages/Chat.svelte";
 
     const signInWithGoogle = async () => {
         await pb.collection("users").authWithOAuth2({ provider:"google" })
@@ -84,7 +85,12 @@
             <Route path="/student/:student" let:params>
                 <Student student={params.student}/>
             </Route>
-            <Route path="/students"><Students/></Route>
+            {#if $currentUser}
+                <Route path="/students"><Students/></Route>
+                <Route path="/chat/:chat" let:params>
+                    <Chat chat={params.chat}/>
+                </Route>
+            {/if}
           </section>
       </div>
       </main>
