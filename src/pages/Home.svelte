@@ -10,6 +10,7 @@
     <a class="btn btn-primary mx-2" href="/quotient">Happiness Quotient</a>
     {#if $currentUser}
     <a class="btn btn-primary mx-2" href="/students">Students</a>
+    <a class="btn btn-primary mx-2" href="/results">Bullying</a>
         
     {/if}
 

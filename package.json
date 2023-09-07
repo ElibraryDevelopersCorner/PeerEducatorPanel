@@ -14,12 +14,15 @@
     "@tsconfig/svelte": "^5.0.0",
     "svelte": "^3.59.2",
     "svelte-check": "^3.4.6",
+    "svelte-loading-spinners": "^0.3.4",
     "tslib": "^2.6.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   },
   "dependencies": {
     "@types/dom-speech-recognition": "^0.0.1",
+    "gridjs": "^6.0.6",
+    "gridjs-svelte": "^2.1.1",
     "pocketbase": "^0.17.3",
     "svelte-navigator": "^3.2.2"
   }

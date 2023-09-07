@@ -50,3 +50,19 @@ export interface Message {
   from: string
   student: string
 }
+
+export interface Result {
+  id: string
+  collectionId: string
+  collectionName: string
+  created: string
+  updated: string
+  score: number
+  place: string
+  time: string
+  response: string
+  contribution: string
+  teacher: string
+  safe: string,
+  student_name: string
+}

@@ -3,6 +3,7 @@
     import type { Student, Message } from "../types";
     import { pb } from "../pocketbase";
     import type { UnsubscribeFunc } from "pocketbase";
+    import { navigate } from "svelte-navigator";
 
     export let student: string = "";
 
@@ -64,14 +65,24 @@
             <p><b>Name</b>: {student_bio.name}</p>
             <p><b>Grade</b>: {student_bio.grade}</p>
             <p><b>Division</b>: {student_bio.division}</p>
-            <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-toggle="modal"
-                data-bs-target="#resultsModal"
-            >
-                Show Results
-            </button>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#resultsModal"
+                >
+                    Show Results
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    on:click={() => navigate(`/bullying/${student_bio.id}`)}
+                >
+                    Give Bullying Survey
+                </button>
+            </div><br>
+            <small class="text-secondary">*Note all you messages and surveys are end to end encrypted between you and school counsellor.</small>
             <hr />
             <h3 class="text-center">Chat with School Counseller</h3>
             <p>
@@ -105,9 +116,9 @@
             <ul class="list-group">
                 {#if messages}
                     {#if messages.length === 0}
-                        <p class="text-center list-group-item">
+                        <li class="text-center list-group-item">
                             No Messages Yet! Initiate Conversation Now
-                        </p>
+                        </li>
                     {:else}
                         {#each messages as message}
                             <li
@@ -134,31 +145,66 @@
                 {/if}
             </ul>
         </div>
-        <div class="modal fade" id="resultsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div
+            class="modal fade"
+            id="resultsModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+        >
             <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Happiness Quotient Result</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">
+                            Happiness Quotient Result
+                        </h1>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        />
+                    </div>
+                    <div class="modal-body">
+                        {#if student_bio.quotient <= 40}
+                            <video width="320" height="240" loop autoplay>
+                                <source src="/digilah-digifun.mp4" type="video/mp4" />
+                                <track kind="captions"/>
+                                Your browser does not support the video tag.
+                            </video>
+                        {:else}
+                            <video width="320" height="240" loop autoplay>
+                                <source src="/emojilaugh-emoji.mp4" type="video/mp4" />
+                                <track kind="captions"/>
+                                Your browser does not support the video tag.
+                            </video>
+                        {/if}
+                        <p>
+                            <b>Score</b>: {student_bio.score} | <b>Quotient</b>: {student_bio.quotient}%
+                        </p>
+                        {#if student_bio.quotient <= 40}
+                            <p>
+                                You're feeling pretty low in life. Please take
+                                out your time to speak with the school
+                                counsellor.
+                            </p>
+                        {:else}
+                            <p>
+                                You're feeling amazing in yout life. Do talk to
+                                our school counsellor in case you need
+                                something.
+                            </p>
+                        {/if}
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            data-bs-dismiss="modal">Close</button
+                        >
+                    </div>
                 </div>
-                <div class="modal-body">
-                    {#if student_bio.quotient <= 40}
-                    <div class="tenor-gif-embed img-fluid text-center" data-postid="17801567" data-share-method="host" data-aspect-ratio="1" data-width="75%"><a href="https://tenor.com/view/digilah-digifun-malaysia-largest-network-digi-emoji-mix-emoji-gif-17801567">Digilah Digifun GIF</a>from <a href="https://tenor.com/search/digilah-gifs">Digilah GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
-                    {:else}
-                    <div class="tenor-gif-embed img-fluid text-center" data-postid="22496814" data-share-method="host" data-aspect-ratio="1" data-width="75%"><a href="https://tenor.com/view/emojilaugh-emoji-laughing-gif-22496814">Emojilaugh Laughing GIF</a>from <a href="https://tenor.com/search/emojilaugh-gifs">Emojilaugh GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
-                    {/if}
-                    <p><b>Score</b>: {student_bio.score} | <b>Quotient</b>: {student_bio.quotient}%</p>
-                    {#if student_bio.quotient <= 40}
-                        <p>You're feeling pretty low in life. Please take out your time to speak with the school counsellor.</p>
-                    {:else}
-                        <p>You're feeling amazing in yout life. Do talk to our school counsellor in case you need something.</p>
-                    {/if}
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                </div>
-              </div>
             </div>
-          </div>
+        </div>
     {/if}
 </main>

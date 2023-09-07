@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Router, Link, Route } from "svelte-navigator"
+    import { Router, Link, Route, navigate } from "svelte-navigator"
     import Home from "./pages/Home.svelte";
     import About from "./pages/About.svelte";
     import Elib from "./pages/Elib.svelte";
@@ -9,6 +9,8 @@
     import Student from "./pages/Student.svelte";
     import Students from "./pages/Students.svelte";
     import Chat from "./pages/Chat.svelte";
+    import Survey from "./pages/Survey.svelte";
+    import Results from "./pages/Results.svelte";
 
     const signInWithGoogle = async () => {
         await pb.collection("users").authWithOAuth2({ provider:"google" })
@@ -16,6 +18,7 @@
 
     const logout = async () => {
         pb.authStore.clear()
+        navigate("/")
     }
 </script>
 
@@ -62,6 +65,11 @@
                                 <span class="visually-hidden">(current)</span>
                             </Link>
                           </li>
+                          <li class="nav-item">
+                            <Link to="/results" class="nav-link">Bullying
+                                <span class="visually-hidden">(current)</span>
+                            </Link>
+                          </li>
                           {/if}
                       </ul>
                       <div class="ms-auto d-flex align-items-center">
@@ -85,11 +93,15 @@
             <Route path="/student/:student" let:params>
                 <Student student={params.student}/>
             </Route>
+            <Route path="/bullying/:student" let:params>
+                <Survey student={params.student} />
+            </Route>
             {#if $currentUser}
                 <Route path="/students"><Students/></Route>
                 <Route path="/chat/:chat" let:params>
                     <Chat chat={params.chat}/>
                 </Route>
+                <Route path="/results"><Results/></Route>
             {/if}
           </section>
       </div>
