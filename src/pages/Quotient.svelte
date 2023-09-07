@@ -38,7 +38,7 @@
     let grade: number = 1;
     let divisions = [
         {label: "a. Diamond", value:"diamond"},
-        {label: "b. Opal", value:"Oopal"},
+        {label: "b. Opal", value:"opal"},
         {label: "c. Ruby", value:"ruby"},
         {label: "d. Topaz", value:"topaz"},
         {label: "e. Perl", value:"perl"},
@@ -73,6 +73,7 @@
             quotient: total,
             depressed
         }
+        console.log(data)
         let { id } = await pb.collection("student").create(data)
         navigate("/student/"+id)
     }
