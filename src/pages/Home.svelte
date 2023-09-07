@@ -40,13 +40,6 @@
                 <span>Principal of Podar International School Sangli</span>
             </div>
         </li>
-        <li class="list-group-item">
-            <div class="d-flex 
-        justify-content-between">
-                <span>Mr. Niraj Rai</span>
-                <span>Vice Principal of Podar International School Sangli</span>
-            </div>
-        </li>
     </ul>
 </section>
 
