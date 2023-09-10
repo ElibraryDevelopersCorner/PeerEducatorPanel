@@ -73,7 +73,7 @@
             "student_name": student_bio.name
         }
         await pb.collection("survey").create(data)
-        window.alert("Thank you for submiting this survey. We'll look into to solving the problem")
+        window.alert("Thank you for submiting this survey. We'll look into solving the problem, until then discuss you problemw with the school counsellor securely.")
         navigate(`/student/${student}`)
     }
 </script>

@@ -74,13 +74,6 @@
                 >
                     Show Results
                 </button>
-                <button
-                    type="button"
-                    class="btn btn-secondary"
-                    on:click={() => navigate(`/bullying/${student_bio.id}`)}
-                >
-                    Give Bullying Survey
-                </button>
             </div><br>
             <small class="text-secondary">*Note all you messages and surveys are end to end encrypted between you and school counsellor.</small>
             <hr />
@@ -185,15 +178,26 @@
                         {#if student_bio.quotient <= 40}
                             <p>
                                 You're feeling pretty low in life. Please take
-                                out your time to speak with the school
+                                out some time to speak with the school
                                 counsellor.
                             </p>
+                            <p>
+                                Please go through the below survey form to better help us understand your situation.
+                            </p>
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                on:click={() => window.location.href = `/bullying/${student_bio.id}`}
+                            >
+                                Survey Form
+                            </button>
                         {:else}
                             <p>
                                 You're feeling amazing in yout life. Do talk to
                                 our school counsellor in case you need
                                 something.
                             </p>
+
                         {/if}
                     </div>
                     <div class="modal-footer">
