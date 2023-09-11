@@ -95,7 +95,7 @@
                 <p><b>Division</b>: {student_bio.division}</p>
             {/if}
             <small class="text-secondary"
-                >*Note all you messages and surveys are end to end encrypted
+                >*Note all you surveys responses are end to end encrypted
                 between you and school counsellor.</small
             >
             <hr />

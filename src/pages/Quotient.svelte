@@ -34,8 +34,8 @@
         { label: "d. Very Poorly", value: 1 },
     ]
 
-    let name: string = "John Doe"
-    let grade: number = 1;
+    let name: string
+    let grade: number
     let divisions = [
         {label: "a. Diamond", value:"diamond"},
         {label: "b. Opal", value:"opal"},
@@ -44,7 +44,7 @@
         {label: "e. Perl", value:"perl"},
         {label: "f. Emerald", value:"emerald"},
     ]
-    let selected = divisions[0]
+    let selected: { label:string, value:string }
 
     let q1: number = 10;
     let q2 = options_inversed[0];
@@ -130,7 +130,7 @@
             <div class="mb-3">
                 <label class="form-label"
                     >2. How often do you experience positive emotions (e.g.,
-                    joy, excitement, contentment) in your daily life?
+                    joy, excitement, contentment) in our School?
                 </label>
                 {#each options_inversed as option}
                     <div class="form-check">
@@ -148,7 +148,7 @@
             <div class="mb-3">
                 <label class="form-label"
                     >3. How often do you experience negative emotions (e.g.,
-                    sadness, anxiety, anger) in your daily life?
+                    sadness, anxiety, anger) in our School?
                 </label>
                 {#each options as option}
                     <div class="form-check">
@@ -164,7 +164,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label"
-                    >4.	How satisfied are you with your current social relationships and support system?
+                    >4.	How satisfied are you with your teachers and peers?
                 </label>
                 {#each satisfied as satisfy}
                     <div class="form-check">
@@ -196,7 +196,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label"
-                    >6.	Are you generally optimistic about the future and your ability to overcome challenges? 
+                    >6.	Are you generally optimistic about school group or do you feel secluded? 
                 </label>
                 {#each optimistic as satisfy}
                     <div class="form-check">
@@ -212,7 +212,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label"
-                    >7.	How often do you feel a sense of purpose or meaning in your life? 
+                    >7.	How often do you feel a sense of purpose or meaning in your school life? 
                 </label>
                 {#each options_inversed as satisfy}
                     <div class="form-check">
@@ -228,7 +228,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label"
-                    >8.	How well do you cope with stress and difficult situations? 
+                    >8.	How well do you cope with stress and difficult situations in school? 
                 </label>
                 {#each quality as satisfy}
                     <div class="form-check">
@@ -244,7 +244,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label"
-                    >9.	How satisfied are you with your physical health and well-being?
+                    >9.	How satisfied are you with your emotional health and well-being among your peers?
                 </label>
                 {#each satisfied as satisfy}
                     <div class="form-check">
@@ -260,7 +260,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label"
-                    >10. How often do you practice gratitude and express appreciation for the positive aspects of your life? 
+                    >10. How often do you practice gratitude and express appreciation for the positive aspects of your school life? 
                 </label>
                 {#each options_inversed as satisfy}
                     <div class="form-check">

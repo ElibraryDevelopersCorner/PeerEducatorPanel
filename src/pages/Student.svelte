@@ -197,7 +197,16 @@
                                 our school counsellor in case you need
                                 something.
                             </p>
-
+                            <p>
+                                While you're here, help us to get to know more about you peer group by filling the below survey form.
+                            </p>
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                on:click={() => window.location.href = `/bullying/${student_bio.id}`}
+                            >
+                                Survey Form
+                            </button>
                         {/if}
                     </div>
                     <div class="modal-footer">
